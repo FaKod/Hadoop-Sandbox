@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="hbase">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../hadoop/hbase/hbase-0.89.20100924/hbase-0.89.20100924.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../hadoop/hbase/hbase-0.89.20100924/lib/zookeeper-3.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
