@@ -6,14 +6,13 @@ import java.net.URI
 import org.apache.hadoop.io.{Writable, SequenceFile}
 
 /**
- * Created by IntelliJ IDEA.
- * User: FaKod
- * Date: Oct 24, 2010
- * Time: 6:12:37 AM
- * To change this template use File | Settings | File Templates.
+ * @author Christopher Schmidt
+ *
+ * this is for easier sequence file handling
  */
 
 trait SequenceFileWrapper {
+
   /**
    * Hadoop configuration instance
    */

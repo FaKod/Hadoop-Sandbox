@@ -6,10 +6,18 @@ import org.apache.hadoop.conf.Configuration
 import javax.imageio.{ImageReader, ImageIO}
 import org.apache.hadoop.io.{BytesWritable, Text}
 
-/*
+/**
+ * @author Christopher Schmidt
+ * @author Anreas Huelzenbecher
  *
+ * This is to retrieve an image from filesystem, calculate its tiles and write them
+ * into a key value file called SequenceFile for further processing
  */
 object Start {
+
+  /**
+   * @param argv local file path of image
+   */
   def main(argv: Array[String]): Unit = {
 
     val filename = argv(0)
@@ -25,7 +33,7 @@ object Start {
 }
 
 /**
- * 
+ * class for image tile conversion
  */
 class ImageSplitter(imageReader: ImageReader) extends SequenceFileWrapper {
   val conf = new Configuration
@@ -41,15 +49,18 @@ class ImageSplitter(imageReader: ImageReader) extends SequenceFileWrapper {
 
 
   /**
-   *
+   * calculates the size of tiles
    */
   def findRange(start: Int): Int = if (start * start * 3 <= blockSize) start else findRange(start - 1)
 
   /**
-   *
+   * writes the tiles into a SequenceFile
    */
   def aquire {
 
+    /**
+     * appends tile name as key and an image array as value to the sequence file
+     */
     doAppend[Text, BytesWritable]("hdfs://localhost:8022/user/training/", "ImageSequenceFile") {
       (sf, k, v) =>
 

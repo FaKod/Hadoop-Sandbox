@@ -7,19 +7,24 @@ import org.apache.hadoop.mapreduce.lib.output.{SequenceFileOutputFormat, FileOut
 import org.apache.hadoop.mapreduce.lib.input.{SequenceFileInputFormat, FileInputFormat}
 
 /**
- * Created by IntelliJ IDEA.
- * User: training
- * Date: Oct 24, 2010
- * Time: 6:45:57 AM
- * To change this template use File | Settings | File Templates.
+ * @author Christopher Schmidt
+ * @author Andreas Huelzenbecher
+ *
+ * The Hadoop job description
  */
 
 class LargeImageProcessingJob
 
 object LargeImageProcessingJob {
+
+  /**
+   * start job
+   */
   def main(args: Array[String]):Unit = {
+
     val conf = new Configuration
     val job = new Job(conf)
+
     val fs = FileSystem.get(conf)
     fs.delete(new Path("output"), true)
 

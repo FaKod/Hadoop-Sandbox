@@ -6,61 +6,21 @@ import java.io.FileInputStream
 import javax.imageio.{ImageReader, ImageIO}
 import org.apache.hadoop.hbase.client.{Put, HTable}
 
-/**
- * Created by IntelliJ IDEA.
- * User: training
- * Date: Oct 16, 2010
- * Time: 6:11:16 AM
- * To change this template use File | Settings | File Templates.
- */
-
-object Conversions {
-  implicit def byte2Integer(v: Array[scala.Byte]): Int = Bytes.toInt(v)
-
-  implicit def integer2Byte(v: Int): Array[scala.Byte] = {
-    var value = v
-    val b = new Array[scala.Byte](4)
-    for (i <- 3 to (1, -1)) {
-      b(i) = value.byteValue
-      value = value >>> 8
-    }
-    b(0) = value.byteValue
-    b
-  }
-
-  implicit def intArrayToByteArray(a: Array[Int]): Array[scala.Byte] = {
-    val byteArray = new Array[scala.Byte](a.size * 4)
-    var t = 0
-    for (i <- 0 until a.size) {
-      val b: Array[scala.Byte] = a(i)
-      byteArray(t) = b(0)
-      byteArray(t + 1) = b(1)
-      byteArray(t + 2) = b(2)
-      byteArray(t + 3) = b(3)
-      t = t + 4
-    }
-    byteArray
-  }
-
-  implicit def byteArrayToIntArray(v: Array[scala.Byte]):Array[Int] = {
-    val intArray = new Array[Int](v.size / 4)
-    var t = 0
-    for(i <- 0 until (v.size, 4)) {
-      intArray(t) = Bytes.toInt(v, i)
-      t = t + 1
-    }
-    intArray
-  }
-
-  implicit def stringToByteArray(s: String): Array[scala.Byte] = {
-    Bytes.toBytes(s)
-  }
-}
 
 import Conversions._
 
+/**
+ * @author Christoher Schmidt
+ *
+ * Test Class for writing an image in a HTable
+ */
 object HBaseTest extends HBaseWrapper {
+
+  /**
+   * main method. No paramter
+   */
   def main(arg: Array[String]): Unit = {
+
     val conf = HBaseConfiguration.create
     val hTable = new HTable(conf, "images")
 
